@@ -13,6 +13,11 @@ const volverInicio = () => {
 
 const selectCategory = (category, categoryName) => {
   selectedCategory.value = category;
+
+  // Guardar en localStorage
+  localStorage.setItem("selectedCategory", category);
+  localStorage.setItem("selectedCategoryName", categoryName);
+
   alertMessage.value = `¡Característica "${categoryName}" registrada exitosamente!`;
   showAlert.value = true;
 
