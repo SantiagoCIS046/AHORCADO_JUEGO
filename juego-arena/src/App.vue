@@ -1,9 +1,9 @@
 <script setup>
-import HomePage from "./components/inicio.vue";
+// Vue Router maneja la navegación automáticamente
 </script>
 
 <template>
-  <HomePage />
+  <router-view />
 </template>
 
 <style scoped></style>

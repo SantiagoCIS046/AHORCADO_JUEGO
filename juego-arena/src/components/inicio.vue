@@ -1,7 +1,11 @@
 <script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const iniciarJuego = () => {
-  console.log("Iniciando juego...");
-  // Aquí se implementará la lógica para iniciar el juego
+  console.log("Navegando a características...");
+  router.push("/caracteristicas");
 };
 </script>
 
