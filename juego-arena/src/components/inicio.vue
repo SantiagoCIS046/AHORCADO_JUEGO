@@ -10,9 +10,17 @@ const iniciarJuego = () => {
     <div class="content-wrapper">
       <h1 class="title">AHORCADO</h1>
 
+      <p class="description">
+        <a class="texto">¡Bienvenido al juego del Ahorcado!</a>
+        <br />Pon a prueba tu vocabulario y habilidades para adivinar palabras
+        antes de que se complete el dibujo.
+        <br />
+        ¿Estás listo para el desafío?
+      </p>
+
       <div class="image-container">
         <img
-          src="../assets/ahorcado.svg"
+          src="../img/img_ahorcado.png"
           alt="Ahorcado"
           class="hangman-image"
         />
@@ -51,6 +59,19 @@ const iniciarJuego = () => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.texto {
+  color: #c9c9c9bf;
+  font-weight: bold;
+}
+.description {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  color: #c6c6c662;
+  line-height: 1.6;
+  max-width: 500px;
 }
 
 .title {
