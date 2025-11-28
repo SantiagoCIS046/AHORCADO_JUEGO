@@ -2,6 +2,14 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+// Importar imágenes de categorías
+import iconPelota from "../icon/icon-pelota.png";
+import iconManzana from "../icon/icon-manzana.png";
+import iconPlanetaTierra from "../icon/icon-PlanetaTierra.png";
+import iconLeon from "../icon/icon-leon.png";
+import iconPalomitas from "../icon/icon-palomitas.png";
+import iconCiencias from "../icon/icon-ciencias.png";
+
 const router = useRouter();
 const selectedCategory = ref(null);
 const showAlert = ref(false);
@@ -55,7 +63,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('deportes', 'Diversión Deportiva')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-pelota.png" alt="Diversión Deportiva" />
+            <img :src="iconPelota" alt="Diversión Deportiva" />
           </div>
           <h3>Diversión Deportiva</h3>
           <p>
@@ -70,7 +78,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('alimentacion', 'Alimentación Saludable')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-manzana.png" alt="Alimentación Saludable" />
+            <img :src="iconManzana" alt="Alimentación Saludable" />
           </div>
           <h3>Alimentación Saludable</h3>
           <p>Descubre palabras sobre frutas, verduras y nutrición balanceada</p>
@@ -82,7 +90,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('geografia', 'Mundo y Geografía')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-PlanetaTierra.png" alt="Mundo y Geografía" />
+            <img :src="iconPlanetaTierra" alt="Mundo y Geografía" />
           </div>
           <h3>Mundo y Geografía</h3>
           <p>Explora países, continentes y maravillas naturales del planeta</p>
@@ -94,7 +102,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('animales', 'Reino Animal')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-leon.png" alt="Reino Animal" />
+            <img :src="iconLeon" alt="Reino Animal" />
           </div>
           <h3>Reino Animal</h3>
           <p>Conoce la fauna salvaje y doméstica de todo el mundo</p>
@@ -106,7 +114,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('entretenimiento', 'Entretenimiento')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-palomitas.png" alt="Entretenimiento" />
+            <img :src="iconPalomitas" alt="Entretenimiento" />
           </div>
           <h3>Entretenimiento</h3>
           <p>Disfruta de palabras sobre cine, series y cultura popular</p>
@@ -118,7 +126,7 @@ const selectCategory = (category, categoryName) => {
           @click="selectCategory('ciencia', 'Ciencia y Tecnología')"
         >
           <div class="feature-icon">
-            <img src="../icon/icon-ciencias.png" alt="Ciencia y Tecnología" />
+            <img :src="iconCiencias" alt="Ciencia y Tecnología" />
           </div>
           <h3>Ciencia y Tecnología</h3>
           <p>Aprende términos científicos y avances tecnológicos modernos</p>

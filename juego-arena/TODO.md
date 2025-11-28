@@ -1,36 +1,27 @@
-# TODO - Página de Inicio del Juego Ahorcado
+# TODO: Solucionar carga de imágenes en Vercel
 
-## ✅ Completado
+## Pasos a completar:
 
-- [x] Crear imagen SVG del ahorcado (`src/assets/ahorcado.svg`)
-- [x] Crear componente HomePage.vue con:
-  - [x] Título "AHORCADO" con gradiente
-  - [x] Imagen del ahorcado
-  - [x] Botón "Iniciar Juego"
-  - [x] Diseño responsive
-  - [x] Animaciones suaves
-  - [x] Soporte para tema claro y oscuro
-- [x] Actualizar App.vue para usar HomePage
-- [x] Mejorar estilos globales en style.css:
-  - [x] Fondo con gradiente profesional
-  - [x] Scrollbar personalizado
-  - [x] Soporte para tema claro y oscuro
-- [x] Iniciar servidor de desarrollo
+- [x] 1. Actualizar niveles.vue - Importar imágenes como módulos ES
 
-## 📋 Próximos Pasos (Futuro)
+  - [x] Importar iconos de nivel (facil, medio, dificil)
+  - [x] Importar iconos de categorías
+  - [x] Actualizar objeto categoryIcons
+  - [x] Actualizar array levels
 
-- [ ] Implementar lógica del juego de ahorcado
-- [ ] Crear componente para el juego principal
-- [ ] Añadir sistema de puntuación
-- [ ] Implementar banco de palabras
-- [ ] Añadir efectos de sonido (opcional)
+- [x] 2. Actualizar caracteristicas.vue - Importar imágenes como módulos ES
 
-## 🎨 Características de Diseño Implementadas
+  - [x] Importar todos los iconos de categorías
+  - [x] Actualizar referencias en el template
 
-- Gradientes modernos (púrpura/azul)
-- Animaciones suaves (fadeIn, pulse, hover effects)
-- Diseño responsive para móviles y tablets
-- Tema automático (claro/oscuro según preferencias del sistema)
-- Efectos de hover interactivos
-- Sombras y efectos de profundidad
-- Tipografía profesional
+- [x] 3. Verificar y probar
+  - [x] Verificar que no haya errores de sintaxis
+  - [x] Confirmar que las rutas de importación son correctas
+
+## Estado: ✅ COMPLETADO
+
+## Resumen de cambios:
+
+- ✅ niveles.vue: Todas las imágenes ahora se importan como módulos ES
+- ✅ caracteristicas.vue: Todas las imágenes ahora se importan como módulos ES
+- ✅ Las imágenes ahora funcionarán correctamente en producción (Vercel)

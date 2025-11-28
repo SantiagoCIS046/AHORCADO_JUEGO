@@ -2,6 +2,19 @@
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from "vue-router";
 
+// Importar imágenes de niveles
+import icoFacil from "../ico/ico-facil.png";
+import icoMedio from "../ico/ico-medio.png";
+import icoDificil from "../ico/ico-dificil.png";
+
+// Importar imágenes de categorías
+import iconPelota from "../icon/icon-pelota.png";
+import iconManzana from "../icon/icon-manzana.png";
+import iconPlanetaTierra from "../icon/icon-PlanetaTierra.png";
+import iconLeon from "../icon/icon-leon.png";
+import iconPalomitas from "../icon/icon-palomitas.png";
+import iconCiencias from "../icon/icon-ciencias.png";
+
 const router = useRouter();
 
 // Estado para la categoría seleccionada
@@ -11,12 +24,12 @@ const showCategoryModal = ref(false);
 
 // Mapeo de categorías con sus iconos
 const categoryIcons = {
-  deportes: "/src/icon/icon-pelota.png",
-  alimentacion: "/src/icon/icon-manzana.png",
-  geografia: "/src/icon/icon-PlanetaTierra.png",
-  animales: "/src/icon/icon-leon.png",
-  entretenimiento: "/src/icon/icon-palomitas.png",
-  ciencia: "/src/icon/icon-ciencias.png",
+  deportes: iconPelota,
+  alimentacion: iconManzana,
+  geografia: iconPlanetaTierra,
+  animales: iconLeon,
+  entretenimiento: iconPalomitas,
+  ciencia: iconCiencias,
 };
 
 const categoryNames = {
@@ -33,7 +46,7 @@ const levels = [
   {
     id: "facil",
     name: "FÁCIL",
-    icon: "/src/ico/ico-facil.png",
+    icon: icoFacil,
     words: "4-6 palabras",
     attempts: 8,
     color: "#4caf50",
@@ -42,7 +55,7 @@ const levels = [
   {
     id: "medio",
     name: "MEDIO",
-    icon: "/src/ico/ico-medio.png",
+    icon: icoMedio,
     words: "7-9 palabras",
     attempts: 6,
     color: "#ff9800",
@@ -51,7 +64,7 @@ const levels = [
   {
     id: "dificil",
     name: "DIFÍCIL",
-    icon: "/src/ico/ico-dificil.png",
+    icon: icoDificil,
     words: "10+ palabras",
     attempts: 5,
     color: "#f44336",
@@ -74,7 +87,7 @@ onMounted(() => {
 const currentCategoryIcon = computed(() => {
   return selectedCategory.value
     ? categoryIcons[selectedCategory.value]
-    : "/src/icon/icon-pelota.png";
+    : iconPelota;
 });
 
 // Función para volver al inicio
