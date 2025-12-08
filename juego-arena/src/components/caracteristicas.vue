@@ -29,10 +29,10 @@ const selectCategory = (category, categoryName) => {
   alertMessage.value = `¡Característica "${categoryName}" registrada exitosamente!`;
   showAlert.value = true;
 
-  // Ocultar la alerta después de 3 segundos
+  // Navegar automáticamente a niveles después de 1 segundo
   setTimeout(() => {
-    showAlert.value = false;
-  }, 3000);
+    router.push("/niveles");
+  }, 1000);
 };
 </script>
 
