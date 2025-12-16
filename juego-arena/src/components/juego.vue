@@ -492,134 +492,436 @@ onMounted(() => {
         <!-- Dibujo del ahorcado -->
         <div class="hangman-area">
           <svg class="hangman-svg" viewBox="0 0 200 250">
-            <!-- Base -->
-            <line
-              x1="10"
-              y1="230"
-              x2="150"
-              y2="230"
-              stroke="#8B4513"
-              stroke-width="4"
+            <!-- Definición de gradientes y filtros -->
+            <defs>
+              <!-- Gradiente para la madera -->
+              <linearGradient
+                id="woodGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  style="stop-color: #8b4513; stop-opacity: 1"
+                />
+                <stop
+                  offset="50%"
+                  style="stop-color: #a0522d; stop-opacity: 1"
+                />
+                <stop
+                  offset="100%"
+                  style="stop-color: #654321; stop-opacity: 1"
+                />
+              </linearGradient>
+
+              <!-- Gradiente para el cuerpo -->
+              <linearGradient
+                id="bodyGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="100%"
+              >
+                <stop
+                  offset="0%"
+                  style="stop-color: #ff6b6b; stop-opacity: 1"
+                />
+                <stop
+                  offset="50%"
+                  style="stop-color: #ff8e8e; stop-opacity: 1"
+                />
+                <stop
+                  offset="100%"
+                  style="stop-color: #ff4757; stop-opacity: 1"
+                />
+              </linearGradient>
+
+              <!-- Gradiente para la cabeza -->
+              <radialGradient id="headGradient" cx="50%" cy="50%" r="50%">
+                <stop
+                  offset="0%"
+                  style="stop-color: #ffe5e5; stop-opacity: 1"
+                />
+                <stop
+                  offset="70%"
+                  style="stop-color: #ffb3b3; stop-opacity: 1"
+                />
+                <stop
+                  offset="100%"
+                  style="stop-color: #ff6b6b; stop-opacity: 1"
+                />
+              </radialGradient>
+
+              <!-- Sombra -->
+              <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
+                <feOffset dx="2" dy="2" result="offsetblur" />
+                <feComponentTransfer>
+                  <feFuncA type="linear" slope="0.5" />
+                </feComponentTransfer>
+                <feMerge>
+                  <feMergeNode />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+
+              <!-- Brillo -->
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                <feMerge>
+                  <feMergeNode in="coloredBlur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- ========== ESTRUCTURA DE MADERA (HORCA) ========== -->
+
+            <!-- Base del suelo -->
+            <rect
+              x="5"
+              y="228"
+              width="150"
+              height="8"
+              fill="url(#woodGradient)"
+              rx="2"
+              filter="url(#shadow)"
             />
-            <!-- Poste vertical -->
-            <line
-              x1="50"
-              y1="230"
-              x2="50"
-              y2="20"
-              stroke="#8B4513"
-              stroke-width="4"
+
+            <!-- Poste vertical principal -->
+            <rect
+              x="47"
+              y="18"
+              width="8"
+              height="212"
+              fill="url(#woodGradient)"
+              rx="2"
+              filter="url(#shadow)"
             />
-            <!-- Poste horizontal -->
+
+            <!-- Vetas de madera vertical -->
             <line
-              x1="50"
+              x1="49"
+              y1="30"
+              x2="49"
+              y2="220"
+              stroke="#654321"
+              stroke-width="1"
+              opacity="0.3"
+            />
+            <line
+              x1="53"
+              y1="30"
+              x2="53"
+              y2="220"
+              stroke="#A0522D"
+              stroke-width="0.5"
+              opacity="0.4"
+            />
+
+            <!-- Poste horizontal superior -->
+            <rect
+              x="50"
+              y="18"
+              width="82"
+              height="6"
+              fill="url(#woodGradient)"
+              rx="2"
+              filter="url(#shadow)"
+            />
+
+            <!-- Vetas de madera horizontal -->
+            <line
+              x1="55"
               y1="20"
-              x2="130"
+              x2="125"
               y2="20"
-              stroke="#8B4513"
-              stroke-width="4"
+              stroke="#654321"
+              stroke-width="0.8"
+              opacity="0.3"
             />
-            <!-- Cuerda -->
+
+            <!-- Soporte diagonal reforzado -->
+            <polygon
+              points="50,40 72,18 72,22 54,40"
+              fill="url(#woodGradient)"
+              opacity="0.9"
+              filter="url(#shadow)"
+            />
+
+            <!-- Borde del soporte -->
+            <line
+              x1="50"
+              y1="40"
+              x2="72"
+              y2="18"
+              stroke="#654321"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              opacity="0.5"
+            />
+
+            <!-- Cuerda con textura -->
             <line
               x1="130"
-              y1="20"
+              y1="24"
               x2="130"
               y2="50"
-              stroke="#8B4513"
-              stroke-width="2"
+              stroke="#D4A574"
+              stroke-width="4"
+              stroke-linecap="round"
+              class="rope"
+              filter="url(#shadow)"
             />
 
-            <!-- Cabeza -->
-            <circle
-              v-if="hangmanParts.head"
-              cx="130"
-              cy="70"
-              r="20"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              fill="none"
-              class="hangman-part"
-            />
-
-            <!-- Cuerpo -->
+            <!-- Textura de la cuerda -->
             <line
-              v-if="hangmanParts.body"
-              x1="130"
-              y1="90"
-              x2="130"
-              y2="150"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              class="hangman-part"
+              x1="128"
+              y1="26"
+              x2="128"
+              y2="48"
+              stroke="#C9985C"
+              stroke-width="1"
+              opacity="0.6"
             />
+            <line
+              x1="132"
+              y1="26"
+              x2="132"
+              y2="48"
+              stroke="#C9985C"
+              stroke-width="1"
+              opacity="0.6"
+            />
+
+            <!-- Nudo de la cuerda -->
+            <ellipse
+              cx="130"
+              cy="50"
+              rx="5"
+              ry="4"
+              fill="#C9985C"
+              stroke="#A0826D"
+              stroke-width="1.5"
+              filter="url(#shadow)"
+            />
+
+            <!-- ========== MUÑECO DEL AHORCADO ========== -->
+
+            <!-- Cabeza con gradiente y sombra -->
+            <g v-if="hangmanParts.head">
+              <circle
+                cx="130"
+                cy="70"
+                r="22"
+                fill="url(#headGradient)"
+                stroke="#FF4757"
+                stroke-width="4"
+                filter="url(#shadow)"
+                class="hangman-part head-part"
+              />
+              <!-- Boca triste -->
+              <path
+                d="M 120 78 Q 130 75 140 78"
+                stroke="#FF4757"
+                stroke-width="2.5"
+                fill="none"
+                stroke-linecap="round"
+                class="hangman-part"
+              />
+            </g>
+
+            <!-- Ojos (cuando aparecen) -->
+            <g v-if="hangmanParts.leftEye || hangmanParts.rightEye">
+              <!-- Ojo izquierdo - X -->
+              <g v-if="hangmanParts.leftEye">
+                <line
+                  x1="120"
+                  y1="63"
+                  x2="126"
+                  y2="69"
+                  stroke="#2C3E50"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  class="hangman-part eye-part"
+                />
+                <line
+                  x1="126"
+                  y1="63"
+                  x2="120"
+                  y2="69"
+                  stroke="#2C3E50"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  class="hangman-part eye-part"
+                />
+              </g>
+
+              <!-- Ojo derecho - X -->
+              <g v-if="hangmanParts.rightEye">
+                <line
+                  x1="134"
+                  y1="63"
+                  x2="140"
+                  y2="69"
+                  stroke="#2C3E50"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  class="hangman-part eye-part"
+                />
+                <line
+                  x1="140"
+                  y1="63"
+                  x2="134"
+                  y2="69"
+                  stroke="#2C3E50"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  class="hangman-part eye-part"
+                />
+              </g>
+            </g>
+
+            <!-- Cuerpo con forma de torso -->
+            <g v-if="hangmanParts.body">
+              <!-- Torso principal -->
+              <ellipse
+                cx="130"
+                cy="115"
+                rx="18"
+                ry="28"
+                fill="url(#headGradient)"
+                stroke="#FF4757"
+                stroke-width="4"
+                filter="url(#shadow)"
+                class="hangman-part body-part"
+              />
+
+              <!-- Línea central del torso (detalle) -->
+              <line
+                x1="130"
+                y1="92"
+                x2="130"
+                y2="140"
+                stroke="#FF4757"
+                stroke-width="1.5"
+                opacity="0.3"
+                stroke-linecap="round"
+              />
+
+              <!-- Botones de camisa -->
+              <circle cx="130" cy="105" r="2" fill="#FF4757" opacity="0.6" />
+              <circle cx="130" cy="115" r="2" fill="#FF4757" opacity="0.6" />
+              <circle cx="130" cy="125" r="2" fill="#FF4757" opacity="0.6" />
+            </g>
 
             <!-- Brazo izquierdo -->
-            <line
-              v-if="hangmanParts.leftArm"
-              x1="130"
-              y1="110"
-              x2="100"
-              y2="130"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              class="hangman-part"
-            />
+            <g v-if="hangmanParts.leftArm">
+              <line
+                x1="118"
+                y1="100"
+                x2="100"
+                y2="130"
+                stroke="url(#bodyGradient)"
+                stroke-width="5"
+                stroke-linecap="round"
+                filter="url(#glow)"
+                class="hangman-part arm-part"
+              />
+              <!-- Mano izquierda -->
+              <circle
+                cx="100"
+                cy="130"
+                r="5"
+                fill="#FF8E8E"
+                stroke="#FF4757"
+                stroke-width="2"
+                filter="url(#shadow)"
+                class="hangman-part"
+              />
+            </g>
 
             <!-- Brazo derecho -->
-            <line
-              v-if="hangmanParts.rightArm"
-              x1="130"
-              y1="110"
-              x2="160"
-              y2="130"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              class="hangman-part"
-            />
+            <g v-if="hangmanParts.rightArm">
+              <line
+                x1="142"
+                y1="100"
+                x2="160"
+                y2="130"
+                stroke="url(#bodyGradient)"
+                stroke-width="5"
+                stroke-linecap="round"
+                filter="url(#glow)"
+                class="hangman-part arm-part"
+              />
+              <!-- Mano derecha -->
+              <circle
+                cx="160"
+                cy="130"
+                r="5"
+                fill="#FF8E8E"
+                stroke="#FF4757"
+                stroke-width="2"
+                filter="url(#shadow)"
+                class="hangman-part"
+              />
+            </g>
 
             <!-- Pierna izquierda -->
-            <line
-              v-if="hangmanParts.leftLeg"
-              x1="130"
-              y1="150"
-              x2="110"
-              y2="190"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              class="hangman-part"
-            />
+            <g v-if="hangmanParts.leftLeg">
+              <line
+                x1="120"
+                y1="143"
+                x2="110"
+                y2="180"
+                stroke="url(#bodyGradient)"
+                stroke-width="5"
+                stroke-linecap="round"
+                filter="url(#glow)"
+                class="hangman-part leg-part"
+              />
+              <!-- Pie izquierdo -->
+              <ellipse
+                cx="107"
+                cy="183"
+                rx="10"
+                ry="5"
+                fill="#FF8E8E"
+                stroke="#FF4757"
+                stroke-width="2"
+                filter="url(#shadow)"
+                class="hangman-part"
+              />
+            </g>
 
             <!-- Pierna derecha -->
-            <line
-              v-if="hangmanParts.rightLeg"
-              x1="130"
-              y1="150"
-              x2="150"
-              y2="190"
-              stroke="#FF6B6B"
-              stroke-width="3"
-              class="hangman-part"
-            />
-
-            <!-- Ojo izquierdo -->
-            <circle
-              v-if="hangmanParts.leftEye"
-              cx="122"
-              cy="67"
-              r="2"
-              fill="#FF6B6B"
-              class="hangman-part"
-            />
-
-            <!-- Ojo derecho -->
-            <circle
-              v-if="hangmanParts.rightEye"
-              cx="138"
-              cy="67"
-              r="2"
-              fill="#FF6B6B"
-              class="hangman-part"
-            />
+            <g v-if="hangmanParts.rightLeg">
+              <line
+                x1="140"
+                y1="143"
+                x2="150"
+                y2="180"
+                stroke="url(#bodyGradient)"
+                stroke-width="5"
+                stroke-linecap="round"
+                filter="url(#glow)"
+                class="hangman-part leg-part"
+              />
+              <!-- Pie derecho -->
+              <ellipse
+                cx="153"
+                cy="183"
+                rx="10"
+                ry="5"
+                fill="#FF8E8E"
+                stroke="#FF4757"
+                stroke-width="2"
+                filter="url(#shadow)"
+                class="hangman-part"
+              />
+            </g>
           </svg>
         </div>
 
@@ -910,8 +1212,37 @@ onMounted(() => {
   height: auto;
 }
 
+/* Animaciones para las partes del muñeco */
 .hangman-part {
-  animation: drawPart 0.5s ease-in;
+  animation: drawPart 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.head-part {
+  animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform-origin: center;
+}
+
+.body-part {
+  animation: slideDown 0.6s ease-out;
+}
+
+.arm-part {
+  animation: swingIn 0.7s ease-out;
+  transform-origin: top center;
+}
+
+.leg-part {
+  animation: kickIn 0.6s ease-out;
+  transform-origin: top;
+}
+
+.eye-part {
+  animation: blink 0.4s ease-in;
+}
+
+.rope {
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: top center;
 }
 
 @keyframes drawPart {
@@ -922,6 +1253,87 @@ onMounted(() => {
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  70% {
+    transform: scale(0.9) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+@keyframes swingIn {
+  0% {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0);
+  }
+  60% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes kickIn {
+  0% {
+    opacity: 0;
+    transform: rotate(-45deg) translateY(-10px);
+  }
+  60% {
+    transform: rotate(5deg) translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(2deg);
+  }
+  75% {
+    transform: rotate(-2deg);
   }
 }
 
